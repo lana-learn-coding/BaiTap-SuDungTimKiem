@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finder</title>
+</head>
+<body>
+<script>
+    let FORM = {
+        VIETTEL: /^01[\s]*?-?[0-9]{8,9}$/,
+        MOBI: /^08[\s]*?-?[0-9]{8,9}$/,
+        VINA: /^09[\s]*?-?[0-9]{8,9}$/,
+        TABLEPHONE: /^04[\s]*?-?[0-9]{8,9}$/
+    };
+    let sdt1 = randomArr(10);
+    sdt1 = toPhoneNumber(sdt1);
+    let sdt2 = randomArr(20);
+    sdt2 = toPhoneNumber(sdt2);
+    let sdt3 = randomArr(18);
+    sdt3 = toPhoneNumber(sdt3);
+
+    console.log("sdt1:");
+    toConsoleLog(findPhoneNum(sdt1,FORM.VIETTEL));
+    console.log("sdt2:");
+    toConsoleLog(findPhoneNum(sdt2,FORM.VIETTEL));
+    console.log("sdt3:");
+    toConsoleLog(findPhoneNum(sdt3,FORM.VIETTEL));
+
+
+
+
+    function findPhoneNum(arr, regex) {
+        let output = [];
+        let count = 0;
+        for (let i = 0; i < arr.length; i++) {
+            if (regex.test(arr[i])) {
+                count++;
+                output.push(count + ": found " + "(" + arr[i] + ")" + " at index of " + i);
+            }
+        }
+        output.push("found total " + count + " phonenumber match");
+        return output;
+    }
+
+
+    function randomArr(max) {
+        let randomArrLenght = Math.round(Math.random() * max);
+        let outputArr = [];
+        for (let i = 0; i < randomArrLenght; i++) {
+            outputArr.push(Math.round(Math.random() * 100000000) + 90000000);
+        }
+        return outputArr;
+    }
+
+    function toPhoneNumber(arr) {
+        const viettel = "01 ";
+        const mobi = "08 ";
+        const vina = "09 ";
+        for (let i = 0; i < arr.length; i++) {
+            arr[i] = arr[i] + "";
+            switch (Math.round(Math.random() * 2)) {
+                case 1:
+                    arr[i] = viettel + arr[i];
+                    break;
+                case 2:
+                    arr[i] = vina + arr[i];
+                    break;
+                case 0:
+                    arr[i] = mobi + arr[i];
+                    break;
+                default:
+                    arr[i] = "04 " + arr[i];
+            }
+            console.log(arr[i]);
+        }
+        return arr;
+    }
+    function toConsoleLog(arr) {
+        for (let e of arr){
+            console.log(e);
+        }
+    }
+</script>
+</body>
+</html>
